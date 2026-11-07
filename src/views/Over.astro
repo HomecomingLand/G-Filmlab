@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '@opstellingen/shared/components/PageIntro.astro';
+import SectionHeading from '@opstellingen/shared/components/SectionHeading.astro';
+import { route } from '../i18n';
+const awards = [
+  { film: '13', items: ['Kodak Vision Award — Slamdance Film Festival, Utah (VS)', 'Beste Kortfilm — Figueira da Foz (Portugal)', 'Beste Kortfilm — Leuven', 'Prix Spécial du Jury — Brussel'] },
+  { film: 'Vincent', items: ['TPS Award voor Beste Internationale Kortfilm — Lille', 'Beste Buitenlandse Film — New York Independent Film Festival', 'Beste Cinematografie — New York Independent Film Festival', 'Uitgezonden door Canal+ International en Sundance Channel'] },
+  { film: 'Allez, Eddy!', items: ['Meer dan tien internationale prijzen, op drie continenten', 'Festivals van Chemnitz tot Palm Springs', 'Verkocht aan meer dan 40 landen, onder meer aan HBO'] },
+  { film: 'Komt een vrouw bij de dokter', items: ['Scenario, naar de bestseller van Kluun', 'Het grootste bioscoopsucces in Nederland in decennia', 'Internationaal uitgebracht als Stricken'] },
+];
+---
+<Base title="Over Gert Embrechts" description="Gert Embrechts is scenarist, regisseur, story consultant en docent. Hij richtte G-Filmlab op voor story development, analyse en masterclasses.">
+  <PageIntro eyebrow="Scenarist · regisseur · creative producer" title="Gert Embrechts" />
+  <section class="section--tight">
+    <div class="wrap split split--photo">
+      <div class="frame frame--3x4"><img src="/images/gert-portret.jpg" alt="Gert Embrechts" /></div>
+      <div class="stack">
+        <blockquote class="bigquote">“Ik weet hoe het voelt om een film in te sturen en te wachten. Ik weet ook wat het verschil maakt tussen een film die blijft liggen en een film die wordt geselecteerd.”</blockquote>
+        <p class="lede">Gert Embrechts is een ervaren filmmaker, scenarist en story consultant. Hij is bekend van <em>Komt een vrouw bij de dokter</em> (<em>Stricken</em>), het grootste bioscoopsucces in Nederland in decennia, en <em>Allez, Eddy!</em>, bekroond met meer dan tien internationale prijzen.</p>
+        <p>Zijn kortfilms <em>13</em> en <em>Vincent</em> werden wereldwijd vertoond, en hij regisseerde diverse tv-series in België en Nederland.</p>
+        <p>Na vele jaren in de filmindustrie en als docent aan verschillende universiteiten en hogescholen in Europa, waaronder LUCA School of Arts, richtte hij G-Filmlab op. Vanuit dit platform specialiseert hij zich in story development en analyse voor film, televisie en streaming. Hij werkt zowel met beslissingsnemers als met makers om projecten in hun kern te versterken. Tot zijn klanten behoren onder andere Streamz, VRT en Dingie, die op hem vertrouwen voor de begeleiding van projecten, filmmakers en content commissioners.</p>
+        <p>Vandaag begeleidt hij als creative producer de projecten van andere makers, en geeft hij gastles aan de Erasmushogeschool Brussel (RITS).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band--ink method">
+    <div class="wrap split">
+      <SectionHeading title="Verder dan structuur en ambacht" />
+      <div class="stack">
+        <p class="lede">Wat zijn aanpak onderscheidt, is de combinatie van praktijkervaring in de sector met een achtergrond in systemisch werk en psychologie.</p>
+        <p>Hierdoor gaat hij verder dan structuur en ambacht, en legt hij de onderliggende dynamieken bloot die personages, conflict en narratieve impact vormgeven: hoe familie en de mensen rondom je je gedrag beïnvloeden en mee je verhaal schrijven.</p>
+        <p class="method__motto">Het gaat om betekenis, niet om plot. Die betekenis maakt een verhaal universeel en invoelbaar voor anderen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHeading eyebrow="Selecties & prijzen" title="Filmografie" />
+      <div class="grid grid--2 films">
+        {awards.map((a) => (
+          <div class="film">
+            <h3 class="display-sm"><em>{a.film}</em></h3>
+            <ul>{a.items.map((x) => <li>{x}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight band">
+    <div class="wrap center">
+      <p class="eyebrow muted">Werken met Gert</p>
+      <h2 class="display">Cursussen, workshops en begeleiding op maat</h2>
+      <p class="actions"><a class="btn btn--solid" href={route('cursussen')}>Bekijk de cursussen</a><a class="btn" href={route('contact')}>Neem contact op</a></p>
+    </div>
+  </section>
+</Base>
+<style>
+  .split--photo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); }
+  .bigquote { margin: 0 0 1.5rem; font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.3; font-style: italic; border-left: 1px solid var(--red); padding-left: 1.4rem; }
+  .method :global(.sh__title) { color: #fff; }
+  .method :global(.sh__rule) { background: var(--red); }
+  .method__motto { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.3; color: #fff; }
+  .films { row-gap: clamp(2rem, 4vw, 3rem); }
+  .film { border-top: 1px solid var(--line-strong); padding-top: 1.2rem; }
+  .film ul { list-style: none; padding: 0; margin: 0.9rem 0 0; display: grid; gap: 0.45rem; }
+  .film li { padding-left: 1.4em; position: relative; }
+  .film li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 0.7em; height: 1px; background: var(--red); }
+  .actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
+  @media (max-width: 56rem) { .split--photo { grid-template-columns: minmax(0, 1fr); } }
+</style>

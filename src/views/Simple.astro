@@ -1,0 +1,14 @@
+---
+/** Simple text page (privacy, thank-you). */
+import Base from '../layouts/Base.astro';
+import PageIntro from '@opstellingen/shared/components/PageIntro.astro';
+interface Props { title: string; description: string; eyebrow?: string; lede?: string; paragraphs: string[]; cta?: { label: string; href: string }; }
+const { title, description, eyebrow, lede, paragraphs, cta } = Astro.props;
+---
+<Base title={title} description={description}>
+  <PageIntro eyebrow={eyebrow} title={title} lede={lede} />
+  <section class="section--tight"><div class="wrap--narrow stack" style="padding-bottom: var(--space-section-sm)">
+    {paragraphs.map((p) => <p>{p}</p>)}
+    {cta && <p><a class="btn" href={cta.href}>{cta.label}</a></p>}
+  </div></section>
+</Base>

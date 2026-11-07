@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '@opstellingen/shared/components/PageIntro.astro';
+import { site } from '../site.config';
+import { route } from '../i18n';
+const thanks = new URL(route('bedankt'), Astro.site).toString();
+const action = site.formEndpoint || route('bedankt');
+---
+<Base title="Contact" description="Neem contact op met G-Filmlab voor een kennismakingsgesprek, een workshop op maat of story consultancy.">
+  <PageIntro eyebrow="Contact" title="Plan een kennismakingsgesprek" lede="Wil je eerst voelen of een cursus bij jou en je project past? Zoek je een workshop op maat voor je team, jury of commissie, of begeleiding bij een project? Stuur een bericht." />
+  <section class="section--tight">
+    <div class="wrap contact">
+      <form class="form" name="contact" method="POST" action={action} data-netlify={site.formEndpoint ? undefined : 'true'} netlify-honeypot="bot-field" accept-charset="UTF-8">
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="_next" value={thanks} />
+        <p class="visually-hidden"><label>Niet invullen: <input name="bot-field" /></label></p>
+        <div class="grid grid--2">
+          <div class="field"><label for="naam">Naam *</label><input id="naam" name="naam" type="text" required autocomplete="name" /></div>
+          <div class="field"><label for="email">E-mailadres *</label><input id="email" name="email" type="email" required autocomplete="email" /></div>
+        </div>
+        <div class="field">
+          <label for="onderwerp">Waarover gaat het?</label>
+          <input id="onderwerp" name="onderwerp" type="text" data-subject />
+        </div>
+        <div class="field"><label for="bericht">Bericht *</label><textarea id="bericht" name="bericht" required></textarea></div>
+        <div class="field field--check"><input id="consent" name="akkoord" type="checkbox" required value="ja" /><label for="consent">Ik ga akkoord dat mijn gegevens gebruikt worden om mijn vraag te beantwoorden.</label></div>
+        <p><button class="btn btn--solid" type="submit">Verstuur bericht</button></p>
+      </form>
+      <aside class="aside">
+        <p class="eyebrow accent">G-Filmlab</p>
+        <p class="display-sm">Gert Embrechts</p>
+        <p class="muted">Story development & analyse voor film, televisie en streaming. Masterclasses, schrijftrajecten en workshops.</p>
+        {site.email && <p><a href={`mailto:${site.email}`}>{site.email}</a></p>}
+        {site.phone && <p><a href={site.phoneHref}>{site.phone}</a></p>}
+        <hr />
+        <p class="eyebrow muted">Locatie opleidingen</p>
+        <p>{site.address.venue}<br />{site.address.street}<br />{site.address.postal} {site.address.city}</p>
+        <p><a class="arrow-link" href={site.mapsUrl} target="_blank" rel="noopener">Plan je route</a></p>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; padding-bottom: var(--space-section-sm); }
+  .form { display: grid; gap: 1.4rem; }
+  .aside { display: grid; gap: 0.9rem; border-top: 3px solid var(--red); padding-top: 1.4rem; }
+  .aside hr { margin: 0.6rem 0; }
+  .aside a:not(.arrow-link) { text-decoration: underline; text-underline-offset: 0.25em; }
+  @media (max-width: 56rem) { .contact { grid-template-columns: minmax(0, 1fr); } }
+</style>
+<script>
+  const s = new URLSearchParams(location.search).get('onderwerp');
+  const f = document.querySelector<HTMLInputElement>('[data-subject]');
+  if (s && f) f.value = s;
+</script>

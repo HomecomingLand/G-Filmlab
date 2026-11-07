@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '@opstellingen/shared/components/PageIntro.astro';
+import TitleCard from '../components/TitleCard.astro';
+import { getCourses, statusLabel, audienceLabel } from '../lib/courses';
+import { courseUrl, route } from '../i18n';
+const courses = await getCourses();
+---
+<Base title="Cursussen" description="Alle cursussen, opleidingen en masterclasses van G-Filmlab: schrijven, verhaalanalyse en regie, met Gert Embrechts.">
+  <PageIntro eyebrow="Het aanbod" title="Cursussen & masterclasses" lede="Van je eerste kortfilmscenario tot je levensverhaal, en van het beoordelen van projecten tot het regisseren van acteurs. Elke cursus vertrekt vanuit dezelfde vraag: wat maakt een verhaal sterk?" />
+  <section class="section--tight list-section">
+    <div class="wrap list">
+      {courses.map((c, i) => (
+        <article class:list={['row', { 'row--rev': i % 2 === 1 }]}>
+          <a class="row__media" href={courseUrl(c.id)} tabindex="-1" aria-hidden="true">
+            {c.data.image
+              ? <div class="frame frame--4x3"><img src={c.data.image} alt="" loading={i < 2 ? 'eager' : 'lazy'} /></div>
+              : <TitleCard title={c.data.title} format={c.data.format} index={i} />}
+          </a>
+          <div class="row__body">
+            <p class="eyebrow muted row__meta"><span>{c.data.format}</span><span>{audienceLabel[c.data.audience]}</span></p>
+            <h2 class="display"><a href={courseUrl(c.id)}>{c.data.title}</a></h2>
+            <span class="rule" aria-hidden="true"></span>
+            <p class="lede">{c.data.subtitle}</p>
+            <p>{c.data.summary}</p>
+            <dl class="row__facts">
+              <div><dt class="eyebrow">Status</dt><dd class:list={{ accent: c.data.status !== 'open' }}>{statusLabel[c.data.status]}</dd></div>
+              {c.data.price && <div><dt class="eyebrow">Bijdrage</dt><dd>{c.data.price}</dd></div>}
+            </dl>
+            <p class="row__actions">
+              <a class="btn btn--solid" href={courseUrl(c.id)}>Ontdek de cursus</a>
+              <a class="arrow-link" href={`${route('inschrijven')}?cursus=${c.id}`}>{c.data.primaryCta}</a>
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+<style>
+  .list { display: grid; gap: clamp(4rem, 8vw, 7rem); }
+  .list-section { padding-bottom: var(--space-section); }
+  .row { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .row--rev .row__media { order: 2; }
+  .row__media { display: block; }
+  .row__meta { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; margin-bottom: 0.9rem; }
+  .row h2 a:hover { color: var(--red); }
+  .rule { display: block; width: 3.5rem; height: 1px; background: var(--ink); margin: 1rem 0 1.4rem; }
+  .row .lede { margin-bottom: 1rem; }
+  .row__facts { display: flex; flex-wrap: wrap; gap: 1rem 3rem; margin: 1.6rem 0; }
+  .row__facts dt { margin-bottom: 0.25rem; } .row__facts dd { margin: 0; }
+  .row__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 2rem; }
+  @media (max-width: 56rem) { .row { grid-template-columns: minmax(0, 1fr); } .row--rev .row__media { order: 0; } }
+</style>

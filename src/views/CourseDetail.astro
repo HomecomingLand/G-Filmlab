@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import TitleCard from '../components/TitleCard.astro';
+import CourseCard from '../components/CourseCard.astro';
+import SectionHeading from '@opstellingen/shared/components/SectionHeading.astro';
+import { render, type CollectionEntry } from 'astro:content';
+import { getCourses, statusLabel, audienceLabel } from '../lib/courses';
+import { route } from '../i18n';
+interface Props { course: CollectionEntry<'courses'> }
+const { course } = Astro.props;
+const d = course.data;
+const { Content } = await render(course);
+const all = await getCourses();
+const index = all.findIndex((c) => c.id === course.id);
+const others = all.filter((c) => c.id !== course.id).slice(0, 3);
+const registerHref = `${route('inschrijven')}?cursus=${course.id}`;
+const contactHref = `${route('contact')}?onderwerp=${encodeURIComponent(d.title)}`;
+---
+<Base title={d.title} description={d.summary} ogImage={d.image}>
+  <!-- Header: title card / photo + title -->
+  <section class="head">
+    <div class="wrap head__grid">
+      <div class="head__text">
+        <p class="eyebrow head__eyebrow"><a href={route('cursussen')}>Cursussen</a> <span aria-hidden="true">/</span> {d.format}</p>
+        <h1 class="display-xl">{d.title}</h1>
+        <span class="rule" aria-hidden="true"></span>
+        <p class="lede">{d.subtitle}</p>
+        <p class="head__actions">
+          <a class="btn btn--solid" href={registerHref}>{d.primaryCta}</a>
+          <a class="btn" href={contactHref}>Stel een vraag</a>
+        </p>
+      </div>
+      <div class="head__media">
+        {d.image
+          ? <div class="frame frame--4x3"><img src={d.image} alt={d.imageAlt ?? ''} fetchpriority="high" /></div>
+          : <TitleCard title={d.title} format={d.format} index={index} />}
+      </div>
+    </div>
+  </section>
+
+  <!-- Body + sticky practical box -->
+  <section class="section--tight">
+    <div class="wrap body">
+      <article class="prose"><Content /></article>
+      <aside class="facts" aria-labelledby="praktisch">
+        <h2 id="praktisch" class="eyebrow">Praktisch</h2>
+        <p class="facts__status"><span class="dot" aria-hidden="true"></span>{statusLabel[d.status]} · {audienceLabel[d.audience]}</p>
+        <dl>
+          {d.practical.map((p) => (<div><dt class="eyebrow">{p.label}</dt><dd>{p.value}</dd></div>))}
+          {d.price && <div class="facts__price"><dt class="eyebrow">Bijdrage</dt><dd>{d.price}</dd></div>}
+        </dl>
+        <a class="btn btn--solid facts__btn" href={registerHref}>{d.primaryCta}</a>
+        <a class="arrow-link" href={contactHref}>Plan een kennismakingsgesprek</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Next step -->
+  <section class="next band--ink">
+    <div class="wrap next__grid">
+      <div>
+        <p class="eyebrow accent">Kies jouw volgende stap</p>
+        <h2 class="display">{d.title}</h2>
+      </div>
+      <div class="next__cols">
+        <div>
+          <h3 class="display-sm">Schrijf je in</h3>
+          <p>Het aantal plaatsen is beperkt. Na je inschrijving ontvang je een bevestiging met alle praktische informatie.</p>
+          <a class="btn btn--light" href={registerHref}>{d.primaryCta}</a>
+        </div>
+        <div>
+          <h3 class="display-sm">Plan een kennismakingsgesprek</h3>
+          <p>Wil je eerst voelen of deze cursus bij jou en jouw project past? Plan een vrijblijvend gesprek.</p>
+          <a class="btn btn--light" href={contactHref}>Neem contact op</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {others.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <SectionHeading eyebrow="Ook bij G-Filmlab" title="Andere cursussen" align="center" />
+        <div class="grid grid--3">
+          {others.map((c) => <CourseCard course={c} index={all.findIndex((x) => x.id === c.id)} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</Base>
+<style>
+  .head { padding-top: calc(4.5rem + var(--space-section-sm)); padding-bottom: var(--space-section-sm); }
+  .head__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .head__eyebrow { color: var(--ink-soft); margin-bottom: 1.2rem; }
+  .head__eyebrow a { text-decoration: underline; text-underline-offset: 0.4em; text-decoration-thickness: 1px; }
+  .head h1 { text-wrap: balance; }
+  .rule { display: block; width: 3.5rem; height: 1px; background: var(--red); margin: 1.4rem 0; }
+  .head__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+
+  .body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .body .prose { font-size: 1.0625rem; }
+  .facts { position: sticky; top: 6rem; background: var(--paper-2); border: 1px solid var(--line); border-top: 3px solid var(--red); padding: 1.6rem; display: grid; gap: 1.1rem; }
+  .facts h2 { color: var(--red); }
+  .facts__status { margin: 0; font-size: var(--text-small); display: flex; align-items: center; gap: 0.6em; }
+  .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--red); flex: none; }
+  .facts dl { margin: 0; display: grid; gap: 1rem; }
+  .facts dl > div { padding-top: 1rem; border-top: 1px solid var(--line); }
+  .facts dt { font-size: 0.7rem; color: var(--ink-soft); margin-bottom: 0.3rem; }
+  .facts dd { margin: 0; font-size: var(--text-small); line-height: 1.5; }
+  .facts__price dd { font-family: var(--font-display); font-size: 1.9rem; font-weight: 500; line-height: 1.1; }
+  .facts__btn { width: 100%; text-align: center; }
+
+  .next { padding-block: var(--space-section); }
+  .next__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(2rem, 5vw, 5rem); }
+  .next h2 { margin-top: 0.8rem; color: #fff; }
+  .next__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3.5rem); }
+  .next__cols > div { display: grid; gap: 1rem; align-content: start; justify-items: start; padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,0.2); }
+  .next__cols p { opacity: 0.8; }
+
+  @media (max-width: 56rem) {
+    .head__grid, .body, .next__grid, .next__cols { grid-template-columns: minmax(0, 1fr); }
+    .head__media { order: -1; }
+    .facts { position: static; }
+  }
+</style>

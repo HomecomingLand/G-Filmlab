@@ -1,0 +1,69 @@
+/*
+  THEME for website 2 — G-Filmlab (Gert Embrechts).
+  Same Tifawine-inspired structure as site 1 (serif display, small uppercase
+  labels, thin rules, straight edges, generous white space), re-skinned with the
+  G-LAB masterclasses red from the logo and a cinematic near-black.
+*/
+:root {
+  /* colour */
+  --paper: #f6f3ef;          /* warm off-white page */
+  --paper-2: #ffffff;
+  --sand: #b69984;           /* kept from Tifawine as a quiet secondary */
+  --sand-25: #ece6e0;        /* soft bands */
+  --sand-50: #d9ccc1;
+  --clay: #c50112;           /* G-LAB red (sampled from the logo) */
+  --red: #c50112;
+  --red-deep: #8f000d;
+  --moss: #549183;
+  --ink: #121111;            /* screen black */
+  --ink-2: #1d1b1a;          /* slightly lifted black for dark bands */
+  --ink-soft: #5c5653;
+  --line: #e3dbd4;
+  --line-strong: #c6b6a9;
+  --accent: var(--red);
+  --on-accent: #ffffff;
+  --on-sand: #121111;
+
+  /* type */
+  --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-body: 'Jost', 'Futura', 'Century Gothic', 'Helvetica Neue', Arial, sans-serif;
+  --display-weight: 500;
+  --text-base: 1.0625rem;
+  --leading-body: 1.6;
+  --text-small: 0.9375rem;
+  --text-eyebrow: 0.8125rem;
+  --text-lede: 1.3125rem;
+  --text-display-sm: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
+  --text-display: clamp(2.25rem, 1.6rem + 2.2vw, 3.25rem);
+  --text-display-xl: clamp(2.75rem, 2rem + 3.5vw, 4.75rem);
+  --tracking-wide: 0.14em;
+
+  /* space */
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  --space-section: clamp(4rem, 8vw, 7.5rem);
+  --space-section-sm: clamp(2.5rem, 5vw, 4.5rem);
+  --measure: 44rem;
+  --measure-wide: 82rem;
+
+  /* shape */
+  --radius-btn: 0;
+  --radius-field: 0;
+}
+
+::selection { background: var(--red); color: #fff; }
+.band--ink a.arrow-link:hover { color: #fff; }
+.accent { color: var(--red); }
+
+/* Long-form text from markdown (course pages) */
+.prose { max-width: var(--measure); }
+.prose > * + * { margin-top: 1em; }
+.prose h2 { font-size: var(--text-display-sm); font-weight: 600; margin-top: 2.6rem; }
+.prose h2::after { content: ""; display: block; width: 2.5rem; height: 1px; background: var(--red); margin-top: 0.8rem; }
+.prose h3 { font-size: 1.45rem; font-weight: 600; margin-top: 1.8rem; }
+.prose ul { padding-left: 0; list-style: none; }
+.prose ul li { position: relative; padding-left: 1.6em; margin-top: 0.45em; }
+.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 0.8em; height: 1px; background: var(--red); }
+.prose blockquote { margin: 2rem 0; padding: 0 0 0 1.5rem; border-left: 1px solid var(--red); font-family: var(--font-display); font-size: 1.45rem; line-height: 1.4; }
+.prose strong { font-weight: 600; }
+.prose em { font-style: italic; }

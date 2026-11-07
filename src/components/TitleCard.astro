@@ -1,0 +1,28 @@
+---
+/**
+ * A typographic "title card" (like the opening card of a film) used when a course has no photo.
+ * Variant is chosen from the course order so the overview alternates red / black / sand.
+ */
+interface Props { title: string; format: string; index: number; variant?: 'red' | 'ink' | 'sand'; ratio?: '4x3' | '3x4' | '16x9' }
+const { title, format, index, ratio = '4x3' } = Astro.props;
+const variants = ['red', 'ink', 'sand'] as const;
+const variant = Astro.props.variant ?? variants[index % 3];
+const num = String(index + 1).padStart(2, '0');
+---
+<div class:list={['tc', `tc--${variant}`, `frame--${ratio}`]} aria-hidden="true">
+  <span class="tc__num">{num}</span>
+  <span class="tc__title">{title}</span>
+  <span class="tc__meta">G-LAB · {format}</span>
+</div>
+<style>
+  .tc { position: relative; display: grid; grid-template-rows: auto 1fr auto; padding: clamp(1.25rem, 3vw, 2rem); overflow: hidden; }
+  .tc::after { content: ""; position: absolute; inset: 0.75rem; border: 1px solid currentColor; opacity: 0.25; pointer-events: none; }
+  .tc--red { background: var(--red); color: #fff; }
+  .tc--ink { background: var(--ink); color: var(--paper); }
+  .tc--ink .tc__num { color: var(--red); }
+  .tc--sand { background: var(--sand-25); color: var(--ink); }
+  .tc--sand .tc__num { color: var(--red); }
+  .tc__num { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.24em; font-weight: 600; }
+  .tc__title { align-self: center; font-family: var(--font-display); font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.4rem); line-height: 1.08; font-weight: 500; text-wrap: balance; }
+  .tc__meta { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8; }
+</style>

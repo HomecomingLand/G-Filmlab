@@ -1,0 +1,204 @@
+---
+/**
+ * HOME — Tifawine rhythm in a cinematic key:
+ * dark title-card hero → intro split → credits strip → course grid →
+ * "voor wie" three columns → Gert teaser → Homecoming Land banner → clients → closing CTA.
+ */
+import Base from '../layouts/Base.astro';
+import SectionHeading from '@opstellingen/shared/components/SectionHeading.astro';
+import CourseCard from '../components/CourseCard.astro';
+import { getCourses, audienceLabel } from '../lib/courses';
+import { route, courseUrl } from '../i18n';
+import { site } from '../site.config';
+
+const courses = await getCourses();
+const byAudience = (a: 'makers' | 'professionals' | 'iedereen') => courses.filter((c) => c.data.audience === a);
+const meesterlijk = courses.find((c) => c.id === 'meesterlijk-schrijven');
+
+const credits = [
+  { title: 'Komt een vrouw bij de dokter', note: 'scenario · grootste bioscoopsucces in Nederland in decennia' },
+  { title: 'Allez, Eddy!', note: 'regie · meer dan tien internationale prijzen, verkocht aan 40+ landen' },
+  { title: '13', note: 'kortfilm · Kodak Vision Award, Slamdance' },
+  { title: 'Vincent', note: 'kortfilm · Best Foreign Film, New York Independent Film Festival' },
+];
+const festivals = ['Slamdance', 'New York Independent', 'Lille', 'Figueira da Foz', 'Brussel', 'Leuven', 'Huy', 'Chemnitz', 'Palm Springs'];
+
+const audiences = [
+  { key: 'makers' as const, title: 'Schrijvers & makers', text: 'Je wil een kortfilm of scenario schrijven dat verder geraakt dan de inzendingsknop, of als regisseur sterker worden op het vlak van verhaal.' },
+  { key: 'professionals' as const, title: 'Professionals', text: 'Je beoordeelt projecten als jurylid, commissielid, content commissioner of producent en wil sneller, scherper en objectiever lezen.' },
+  { key: 'iedereen' as const, title: 'Je eigen verhaal', text: 'Er leeft een verhaal in je dat verteld wil worden: je levensverhaal, je familiegeschiedenis, een memoir of een roman.' },
+];
+---
+<Base title={site.name} description="G-Filmlab: masterclasses en story development van scenarist en regisseur Gert Embrechts. Leer een verhaal schrijven, analyseren en vertellen dat raakt." transparentNav>
+
+  <!-- 1. Title-card hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__grain" aria-hidden="true"></div>
+    <div class="hero__bars" aria-hidden="true"></div>
+    <div class="hero__content wrap">
+      <svg class="hero__mark" viewBox="0 0 64 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"><path d="M8 6h16a10 10 0 0 1 0 20H8z"/><path d="M38 14l14-9v26l-14-9"/><path d="M15 26l-5 12h20"/></g></svg>
+      <h1 id="hero-title" class="hero__title">G-Filmlab</h1>
+      <p class="hero__sub">Masterclasses &nbsp;·&nbsp; Story development &nbsp;·&nbsp; Gert Embrechts</p>
+      <a class="btn btn--light hero__cta" href={route('cursussen')}>Bekijk de cursussen</a>
+    </div>
+    <p class="hero__scroll" aria-hidden="true">Scroll</p>
+  </section>
+
+  <!-- 2. Intro split -->
+  <section class="section">
+    <div class="wrap split">
+      <SectionHeading title="Het verschil zit in het verhaal" />
+      <div class="stack">
+        <p class="lede">Talent of budget is zelden het verschil. Het verschil zit in het script: een verhaal dat precies weet wat het wil zeggen, dat strak en doelgericht verteld wordt en een vondst heeft die je niet meer vergeet.</p>
+        <p>G-Filmlab is het platform van scenarist, regisseur en story consultant Gert Embrechts. Na vele jaren in de filmindustrie en als docent aan universiteiten en hogescholen in Europa specialiseert hij zich in story development en analyse voor film, televisie en streaming.</p>
+        <p>Wat zijn aanpak onderscheidt, is de combinatie van praktijkervaring met een achtergrond in systemisch werk en psychologie. Zo gaat hij verder dan structuur en ambacht, en legt hij de onderliggende dynamieken bloot die personages, conflict en impact vormgeven. Dat geeft hij door in masterclasses, schrijftrajecten en workshops: voor makers, voor professionals, en voor iedereen met een verhaal.</p>
+        <p><a class="arrow-link" href={route('over')}>Over Gert Embrechts</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Credits strip -->
+  <section class="credits band--ink">
+    <div class="wrap">
+      <p class="eyebrow credits__eyebrow">Uit de praktijk</p>
+      <ol class="credits__list">
+        {credits.map((c) => (
+          <li><span class="credits__title">{c.title}</span><span class="credits__note">{c.note}</span></li>
+        ))}
+      </ol>
+      <p class="credits__fest">{festivals.join('  ·  ')}<br /><span>Uitgezonden door Canal+ International en Sundance Channel</span></p>
+    </div>
+  </section>
+
+  <!-- 4. Courses -->
+  <section class="section" id="aanbod">
+    <div class="wrap">
+      <SectionHeading eyebrow="Het aanbod" title="Cursussen & masterclasses" align="center" />
+      <div class="grid grid--3 courses">
+        {courses.map((c, i) => <CourseCard course={c} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Voor wie -->
+  <section class="section band">
+    <div class="wrap">
+      <SectionHeading eyebrow="Voor wie" title="Drie ingangen, één ambacht" />
+      <div class="grid grid--3 aud">
+        {audiences.map((a) => (
+          <div class="aud__item">
+            <p class="eyebrow accent">{audienceLabel[a.key]}</p>
+            <h3 class="display-sm">{a.title}</h3>
+            <p>{a.text}</p>
+            <ul class="aud__links">
+              {byAudience(a.key).map((c) => <li><a class="arrow-link" href={courseUrl(c.id)}>{c.data.title}</a></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Gert teaser -->
+  <section class="section">
+    <div class="wrap split split--photo">
+      <div class="frame frame--3x4"><img src="/images/gert-portret.jpg" alt="Gert Embrechts" loading="lazy" /></div>
+      <div>
+        <SectionHeading eyebrow="Scenarist · regisseur · creative producer" title="Gert Embrechts" />
+        <blockquote class="bigquote">“Ik geef geen theorie uit een handboek. Ik geef door wat ik zelf heb meegemaakt.”</blockquote>
+        <p>Hij schreef het scenario van <em>Komt een vrouw bij de dokter</em>, regisseerde <em>Allez, Eddy!</em> en tv-series in België en Nederland, en zag zijn kortfilms <em>13</em> en <em>Vincent</em> wereldwijd vertoond. Vandaag begeleidt hij makers als creative producer en geeft hij gastles aan de Erasmushogeschool Brussel (RITS).</p>
+        <p><a class="arrow-link" href={route('over')}>Lees meer over Gert</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Homecoming Land banner + Meesterlijk Schrijven -->
+  {meesterlijk && (
+    <section class="section--tight">
+      <div class="wrap">
+        <div class="frame frame--21x9"><img src="/images/banner-tuin-mist.jpg" alt="De tuin van Homecoming Land in de ochtendmist" loading="lazy" /></div>
+        <div class="split banner-text">
+          <SectionHeading eyebrow="Opleiding · Homecoming Land, Brasschaat" title={meesterlijk.data.title} />
+          <div>
+            <p class="lede">{meesterlijk.data.subtitle}.</p>
+            <p>Vijf weekenden in een domein van 2,5 hectare bos, met rust, ruimte en stilte om te luisteren naar wat geschreven wil worden. Start in april 2027, maximaal 12 deelnemers.</p>
+            <p><a class="arrow-link" href={courseUrl(meesterlijk.id)}>Ontdek de opleiding</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 8. Clients -->
+  <section class="section clients">
+    <div class="wrap center">
+      <p class="eyebrow muted">Vertrouwd door onder andere</p>
+      <p class="clients__names">Streamz &nbsp;·&nbsp; VRT &nbsp;·&nbsp; Dingie</p>
+      <p class="small muted measure clients__note">Voor de begeleiding van projecten, filmmakers en content commissioners.</p>
+    </div>
+  </section>
+
+  <!-- 9. Closing CTA -->
+  <section class="cta">
+    <div class="wrap cta__content">
+      <h2 class="display cta__title">Welk verhaal wil jij vertellen?</h2>
+      <p class="lede measure">Kies een cursus en schrijf je in, of stuur Gert eerst een bericht voor een vrijblijvend kennismakingsgesprek.</p>
+      <div class="cta__actions">
+        <a class="btn btn--light" href={route('inschrijven')}>Schrijf je in</a>
+        <a class="btn btn--light" href={route('contact')}>Plan een kennismakingsgesprek</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* hero */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; text-align: center; color: #fff; background: radial-gradient(ellipse at 50% 45%, #2a2625 0%, var(--ink) 62%); overflow: hidden; }
+  .hero__grain { position: absolute; inset: -50%; opacity: 0.09; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grain 1.2s steps(6) infinite; }
+  .hero__bars::before, .hero__bars::after { content: ""; position: absolute; left: 0; right: 0; height: 7vh; background: #000; }
+  .hero__bars::before { top: 0; } .hero__bars::after { bottom: 0; }
+  .hero__content { position: relative; padding-block: 7rem 5rem; display: grid; justify-items: center; }
+  .hero__mark { width: 4.25rem; color: var(--red); margin-bottom: 2rem; }
+  .hero__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(3rem, 1.5rem + 7vw, 7.5rem); letter-spacing: 0.18em; text-transform: uppercase; line-height: 1; margin-right: -0.18em; }
+  .hero__sub { margin: 1.8rem 0 0; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.85; }
+  .hero__cta { margin-top: 2.8rem; }
+  .hero__scroll { position: absolute; bottom: calc(7vh + 1rem); left: 50%; transform: translateX(-50%); margin: 0; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.6; }
+  .hero__scroll::after { content: ""; display: block; width: 1px; height: 2.2rem; background: currentColor; margin: 0.7rem auto 0; }
+  @keyframes grain { 0% { transform: translate(0,0) } 20% { transform: translate(-3%,2%) } 40% { transform: translate(2%,-3%) } 60% { transform: translate(-2%,3%) } 80% { transform: translate(3%,1%) } 100% { transform: translate(0,0) } }
+  @media (prefers-reduced-motion: reduce) { .hero__grain { animation: none; } }
+  @media (max-width: 48rem) { .hero__title { letter-spacing: 0.1em; margin-right: -0.1em; } .hero__sub { font-size: 0.66rem; letter-spacing: 0.18em; } .hero__bars::before, .hero__bars::after { height: 4vh; } .hero__scroll { display: none; } }
+
+  /* credits */
+  .credits { padding-block: var(--space-section-sm); }
+  .credits__eyebrow { color: var(--red); text-align: center; margin-bottom: 2rem; }
+  .credits__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); text-align: center; }
+  .credits__list li { display: grid; gap: 0.6rem; align-content: start; padding-inline: 0.5rem; }
+  .credits__list li + li { border-left: 1px solid rgba(255,255,255,0.14); }
+  .credits__title { font-family: var(--font-display); font-style: italic; font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); line-height: 1.1; }
+  .credits__note { font-size: 0.8rem; opacity: 0.7; line-height: 1.45; }
+  .credits__fest { margin: 2.5rem 0 0; text-align: center; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.75; line-height: 2; }
+  .credits__fest span { opacity: 0.7; }
+  @media (max-width: 56rem) { .credits__list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2rem; } .credits__list li:nth-child(3) { border-left: 0; } }
+
+  /* courses */
+  .courses { row-gap: clamp(2.5rem, 5vw, 4rem); }
+
+  /* audiences */
+  .aud__item h3 { margin: 0.7rem 0 0.9rem; }
+  .aud__links { list-style: none; padding: 0; margin: 1.3rem 0 0; display: grid; gap: 0.6rem; }
+  .aud__links .arrow-link { text-align: left; }
+
+  .split--photo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+  .bigquote { margin: 0 0 1.5rem; font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.3; font-style: italic; }
+  .banner-text { margin-top: clamp(2rem, 4vw, 3.5rem); }
+
+  .clients__names { font-family: var(--font-display); font-size: clamp(1.8rem, 1.3rem + 2vw, 3rem); letter-spacing: 0.12em; text-transform: uppercase; margin: 1rem 0; }
+  .clients__note { margin-inline: auto; }
+
+  .cta { background: var(--red); color: #fff; text-align: center; }
+  .cta__content { padding-block: var(--space-section); display: grid; justify-items: center; gap: 1.5rem; }
+  .cta__title { color: #fff; }
+  .cta__actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 0.5rem; }
+  .cta .btn--light:hover { color: var(--red); }
+  @media (max-width: 56rem) { .split--photo { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -1,0 +1,100 @@
+---
+/**
+ * Base layout: <head>, fonts, nav, footer. Every page/view wraps itself in this.
+ */
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/jost/400.css';
+import '@fontsource/jost/500.css';
+import '@fontsource/jost/600.css';
+import '@opstellingen/shared/css/base.css';
+import '../styles/theme.css';
+import Nav from '@opstellingen/shared/components/Nav.astro';
+import Footer from '@opstellingen/shared/components/Footer.astro';
+import { getCourses } from '../lib/courses';
+import { site } from '../site.config';
+import { route, courseUrl } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  transparentNav?: boolean;
+  ogImage?: string;
+}
+const { title, description, transparentNav = false, ogImage = '/images/g-lab-logo.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === site.name ? `${site.name} · ${site.tagline}` : `${title} · ${site.name}`;
+const year = new Date().getFullYear();
+
+const courses = await getCourses();
+
+const navItems = [
+  { label: 'Cursussen', href: route('cursussen') },
+  { label: 'Over Gert', href: route('over') },
+  { label: 'Contact', href: route('contact') },
+];
+const footerColumns = [
+  { title: 'Cursussen', links: courses.map((c) => ({ label: c.data.title, href: courseUrl(c.id) })) },
+  { title: 'G-Filmlab', links: [...navItems, { label: 'Inschrijven', href: route('inschrijven') }, { label: 'Privacy', href: route('privacy') }] },
+];
+const addressLines = ['Gert Embrechts', 'Story development & analyse', 'Film · televisie · streaming'];
+const contactLines = [
+  ...(site.email ? [{ label: site.email, href: `mailto:${site.email}` }] : []),
+  ...(site.phone ? [{ label: site.phone, href: site.phoneHref }] : []),
+  { label: 'Stuur een bericht', href: route('contact') },
+];
+const siblings = site.siblings.map((s) => ({ label: `${s.name} — ${s.nl}`, href: s.url, external: true }));
+---
+<!doctype html>
+<html lang="nl-BE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content="nl_BE" />
+    <meta name="theme-color" content="#121111" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Naar de inhoud</a>
+    <Nav
+      brand={site.name}
+      brandHref={route('home')}
+      items={navItems}
+      cta={{ label: 'Inschrijven', href: route('inschrijven') }}
+      locales={[]}
+      transparent={transparentNav}
+      menuLabel="Menu"
+      closeLabel="Sluiten"
+    />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer
+      brand={site.name}
+      tagline="Masterclasses en story development voor film, televisie en wie zijn eigen verhaal wil schrijven."
+      columns={footerColumns}
+      addressLines={addressLines}
+      contactLines={contactLines}
+      legal={`© ${year} G-Filmlab · Gert Embrechts`}
+      siblingsTitle="Ook van Embrace Evolve"
+      siblings={siblings}
+    />
+  </body>
+</html>
+
+<style is:global>
+  .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--paper); padding: 0.6em 1em; z-index: 100; }
+  .skip:focus { left: 1rem; top: 1rem; }
+  /* brand mark: a small red square before the wordmark, echoing the logo */
+  .nav__brand::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; background: var(--red); margin-right: 0.6em; vertical-align: 0.08em; }
+</style>

@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '@opstellingen/shared/components/PageIntro.astro';
+import { getCourses } from '../lib/courses';
+import { site } from '../site.config';
+import { route } from '../i18n';
+const courses = (await getCourses()).filter((c) => c.data.status !== 'volzet');
+const thanks = new URL(route('bedankt'), Astro.site).toString();
+const action = site.formEndpoint || route('bedankt');
+---
+<Base title="Inschrijven" description="Schrijf je in voor een cursus, opleiding of masterclass van G-Filmlab.">
+  <PageIntro eyebrow="Deelnemen" title="Inschrijven" lede="Kies een cursus en laat je gegevens achter. Je ontvangt een bevestiging met alle praktische informatie en de betaalgegevens. Voor cursussen die binnenkort starten, hou je je plaats zo warm." />
+  <section class="section--tight">
+    <div class="wrap--narrow">
+      <form class="form" name="inschrijving" method="POST" action={action} data-netlify={site.formEndpoint ? undefined : 'true'} netlify-honeypot="bot-field" accept-charset="UTF-8">
+        <input type="hidden" name="form-name" value="inschrijving" />
+        <input type="hidden" name="_next" value={thanks} />
+        <p class="visually-hidden"><label>Niet invullen: <input name="bot-field" /></label></p>
+        <div class="field">
+          <label for="cursus">Voor welke cursus schrijf je in? *</label>
+          <select id="cursus" name="cursus" required data-course-select>
+            {courses.map((c) => (<option value={c.id}>{c.data.title} — {c.data.format}</option>))}
+            <option value="weet-niet">Ik twijfel nog / ik wil eerst een gesprek</option>
+          </select>
+        </div>
+        <div class="grid grid--2">
+          <div class="field"><label for="naam">Naam *</label><input id="naam" name="naam" type="text" required autocomplete="name" /></div>
+          <div class="field"><label for="email">E-mailadres *</label><input id="email" name="email" type="email" required autocomplete="email" /></div>
+        </div>
+        <div class="grid grid--2">
+          <div class="field"><label for="telefoon">Telefoon</label><input id="telefoon" name="telefoon" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="organisatie">Organisatie (optioneel)</label><input id="organisatie" name="organisatie" type="text" autocomplete="organization" /></div>
+        </div>
+        <div class="field"><label for="project">Vertel kort over jezelf of je schrijfproject (optioneel)</label><textarea id="project" name="project"></textarea></div>
+        <div class="field field--check"><input id="consent" name="akkoord" type="checkbox" required value="ja" /><label for="consent">Ik ga akkoord dat mijn gegevens gebruikt worden om mijn inschrijving te behandelen. (<a href={route('privacy')}>privacy</a>)</label></div>
+        <p><button class="btn btn--solid" type="submit">Verstuur inschrijving</button></p>
+        <p class="small muted">Het aantal plaatsen is beperkt; inschrijvingen worden behandeld in volgorde van ontvangst.</p>
+      </form>
+    </div>
+  </section>
+</Base>
+<style>
+  .form { display: grid; gap: 1.4rem; padding-bottom: var(--space-section-sm); }
+  .form a { text-decoration: underline; }
+</style>
+<script>
+  // Preselect the course when arriving from a course page (?cursus=slug).
+  const key = new URLSearchParams(location.search).get('cursus');
+  const sel = document.querySelector<HTMLSelectElement>('[data-course-select]');
+  if (key && sel && [...sel.options].some((o) => o.value === key)) sel.value = key;
+</script>
