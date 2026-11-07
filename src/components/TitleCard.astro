@@ -10,7 +10,7 @@ const variant = Astro.props.variant ?? variants[index % 3];
 const num = String(index + 1).padStart(2, '0');
 ---
 <div class:list={['tc', `tc--${variant}`, `frame--${ratio}`]} aria-hidden="true">
-  <span class="tc__num">{num}</span>
+  <span class="tc__num">SCÈNE {num}</span>
   <span class="tc__title">{title}</span>
   <span class="tc__meta">G-LAB · {format}</span>
 </div>
@@ -22,7 +22,7 @@ const num = String(index + 1).padStart(2, '0');
   .tc--ink .tc__num { color: var(--red); }
   .tc--sand { background: var(--sand-25); color: var(--ink); }
   .tc--sand .tc__num { color: var(--red); }
-  .tc__num { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.24em; font-weight: 600; }
+  .tc__num { font-family: var(--font-script); font-size: 0.85rem; letter-spacing: 0.08em; font-weight: 700; }
   .tc__title { align-self: center; font-family: var(--font-display); font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.4rem); line-height: 1.08; font-weight: 500; text-wrap: balance; }
-  .tc__meta { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8; }
+  .tc__meta { font-family: var(--font-script); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; }
 </style>

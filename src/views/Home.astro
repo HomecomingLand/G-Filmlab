@@ -60,7 +60,7 @@ const audiences = [
   <!-- 3. Credits strip -->
   <section class="credits band--ink">
     <div class="wrap">
-      <p class="eyebrow credits__eyebrow">Uit de praktijk</p>
+      <p class="script credits__eyebrow">INT. FILMSET — DAG</p>
       <ol class="credits__list">
         {credits.map((c) => (
           <li><span class="credits__title">{c.title}</span><span class="credits__note">{c.note}</span></li>
@@ -160,7 +160,7 @@ const audiences = [
   .hero__content { position: relative; padding-block: 7rem 5rem; display: grid; justify-items: center; }
   .hero__mark { width: 4.25rem; color: var(--red); margin-bottom: 2rem; }
   .hero__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(3rem, 1.5rem + 7vw, 7.5rem); letter-spacing: 0.18em; text-transform: uppercase; line-height: 1; margin-right: -0.18em; }
-  .hero__sub { margin: 1.8rem 0 0; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.85; }
+  .hero__sub { margin: 1.8rem 0 0; font-family: var(--font-script); font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; }
   .hero__cta { margin-top: 2.8rem; }
   .hero__scroll { position: absolute; bottom: calc(7vh + 1rem); left: 50%; transform: translateX(-50%); margin: 0; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.6; }
   .hero__scroll::after { content: ""; display: block; width: 1px; height: 2.2rem; background: currentColor; margin: 0.7rem auto 0; }
@@ -175,7 +175,7 @@ const audiences = [
   .credits__list li { display: grid; gap: 0.6rem; align-content: start; padding-inline: 0.5rem; }
   .credits__list li + li { border-left: 1px solid rgba(255,255,255,0.14); }
   .credits__title { font-family: var(--font-display); font-style: italic; font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); line-height: 1.1; }
-  .credits__note { font-size: 0.8rem; opacity: 0.7; line-height: 1.45; }
+  .credits__note { font-family: var(--font-script); font-size: 0.82rem; opacity: 0.7; line-height: 1.45; }
   .credits__fest { margin: 2.5rem 0 0; text-align: center; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.75; line-height: 2; }
   .credits__fest span { opacity: 0.7; }
   @media (max-width: 56rem) { .credits__list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2rem; } .credits__list li:nth-child(3) { border-left: 0; } }
