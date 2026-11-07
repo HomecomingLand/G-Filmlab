@@ -2,13 +2,11 @@
 /**
  * Base layout: <head>, fonts, nav, footer. Every page/view wraps itself in this.
  */
-import '@fontsource/cormorant-garamond/400.css';
-import '@fontsource/cormorant-garamond/500.css';
-import '@fontsource/cormorant-garamond/600.css';
-import '@fontsource/cormorant-garamond/500-italic.css';
-import '@fontsource/jost/400.css';
-import '@fontsource/jost/500.css';
-import '@fontsource/jost/600.css';
+import '@fontsource/archivo-narrow/600.css';
+import '@fontsource/archivo-narrow/700.css';
+import '@fontsource/archivo/400.css';
+import '@fontsource/archivo/500.css';
+import '@fontsource/archivo/700.css';
 import '@fontsource/courier-prime/400.css';
 import '@fontsource/courier-prime/700.css';
 import '@opstellingen/shared/css/base.css';
@@ -64,7 +62,7 @@ const siblings = site.siblings.map((s) => ({ label: `${s.name} — ${s.nl}`, hre
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(ogImage, Astro.site)} />
     <meta property="og:locale" content="nl_BE" />
-    <meta name="theme-color" content="#121111" />
+    <meta name="theme-color" content="#f3f3f3" />
   </head>
   <body>
     <a class="skip" href="#main">Naar de inhoud</a>
@@ -98,5 +96,5 @@ const siblings = site.siblings.map((s) => ({ label: `${s.name} — ${s.nl}`, hre
   .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--paper); padding: 0.6em 1em; z-index: 100; }
   .skip:focus { left: 1rem; top: 1rem; }
   /* brand mark: a small red square before the wordmark, echoing the logo */
-  .nav__brand::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; background: var(--red); margin-right: 0.6em; vertical-align: 0.08em; }
+  .nav__brand::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; background: var(--red); margin-right: 0.5em; vertical-align: 0.02em; }
 </style>

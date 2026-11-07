@@ -1,73 +1,97 @@
 /*
-  THEME for website 2 — G-Filmlab (Gert Embrechts).
-  Same Tifawine-inspired structure as site 1 (serif display, small uppercase
-  labels, thin rules, straight edges, generous white space), re-skinned with the
-  G-LAB masterclasses red from the logo and a cinematic near-black.
+  THEME for G-Filmlab (Gert Embrechts).
+  Look & feel modelled on dfi.dk (Det Danske Filminstitut): light grey page,
+  white cards and buttons, black type, big condensed bold UPPERCASE headings,
+  a plain grotesk for text, full-bleed photos with left-aligned titles,
+  straight edges. The G-LAB red from the logo is the only accent colour.
 */
 :root {
   /* colour */
-  --paper: #f6f3ef;          /* warm off-white page */
-  --paper-2: #ffffff;
-  --sand: #b69984;           /* kept from Tifawine as a quiet secondary */
-  --sand-25: #ece6e0;        /* soft bands */
-  --sand-50: #d9ccc1;
-  --clay: #c50112;           /* G-LAB red (sampled from the logo) */
-  --red: #c50112;
+  --paper: #f3f3f3;          /* DFI light grey page */
+  --paper-2: #ffffff;        /* cards, buttons */
+  --sand: #d9d9d9;
+  --sand-25: #e8e8e8;        /* soft bands */
+  --sand-50: #d0d0d0;
+  --red: #c50112;            /* G-LAB red (sampled from the logo) */
   --red-deep: #8f000d;
-  --moss: #549183;
-  --ink: #121111;            /* screen black */
-  --ink-2: #1d1b1a;          /* slightly lifted black for dark bands */
-  --ink-soft: #5c5653;
-  --line: #e3dbd4;
-  --line-strong: #c6b6a9;
+  --clay: var(--red);
+  --ink: #000000;
+  --ink-2: #141414;
+  --ink-soft: #555555;
+  --line: #dcdcdc;
+  --line-strong: #b5b5b5;
   --accent: var(--red);
   --on-accent: #ffffff;
-  --on-sand: #121111;
+  --on-sand: #000000;
 
   /* type */
-  --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
-  --font-body: 'Jost', 'Futura', 'Century Gothic', 'Helvetica Neue', Arial, sans-serif;
-  --font-script: 'Courier Prime', 'Courier New', Courier, monospace; /* screenplay font, used sparingly as an accent */
-  --display-weight: 500;
+  --font-display: 'Archivo Narrow', 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-script: 'Courier Prime', 'Courier New', Courier, monospace; /* screenplay accent, used sparingly */
+  --display-weight: 700;
   --text-base: 1.0625rem;
-  --leading-body: 1.6;
+  --leading-body: 1.55;
   --text-small: 0.9375rem;
   --text-eyebrow: 0.8125rem;
-  --text-lede: 1.3125rem;
-  --text-display-sm: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
-  --text-display: clamp(2.25rem, 1.6rem + 2.2vw, 3.25rem);
-  --text-display-xl: clamp(2.75rem, 2rem + 3.5vw, 4.75rem);
-  --tracking-wide: 0.14em;
+  --text-lede: 1.375rem;
+  --text-display-sm: clamp(1.4rem, 1.15rem + 0.9vw, 1.75rem);
+  --text-display: clamp(2.25rem, 1.5rem + 2.6vw, 3.5rem);
+  --text-display-xl: clamp(2.75rem, 1.6rem + 4.5vw, 5.5rem);
+  --tracking-wide: 0.04em;
 
   /* space */
-  --gutter: clamp(1rem, 4vw, 3rem);
-  --gap: clamp(1.25rem, 2.5vw, 2.5rem);
-  --space-section: clamp(4rem, 8vw, 7.5rem);
-  --space-section-sm: clamp(2.5rem, 5vw, 4.5rem);
+  --gutter: clamp(1rem, 2vw, 1.75rem);
+  --gap: clamp(1rem, 2vw, 2.25rem);
+  --space-section: clamp(3.5rem, 7vw, 6.5rem);
+  --space-section-sm: clamp(2.25rem, 4.5vw, 4rem);
   --measure: 44rem;
-  --measure-wide: 82rem;
+  --measure-wide: 92rem;
 
   /* shape */
   --radius-btn: 0;
   --radius-field: 0;
 }
 
+/* ---- DFI-style overrides of the shared base ---- */
+h1, h2, h3, h4 { letter-spacing: 0; }
+.display, .display-xl { text-transform: uppercase; line-height: 0.98; letter-spacing: -0.005em; }
+.display-sm { font-weight: 700; line-height: 1.1; }
+.eyebrow { font-weight: 700; }
+.sh__rule, .intro__rule { display: none !important; }
+.sh__eyebrow { color: var(--ink-soft); }
+
+/* buttons: white blocks with black bold uppercase text */
+.btn { background: var(--paper-2); color: var(--ink); border-color: var(--paper-2); font-weight: 700; padding: 0.95em 1.5em; }
+.btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn--solid { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn--solid:hover { background: var(--red); border-color: var(--red); color: #fff; }
+.btn--light { background: #e9e9e9; color: var(--ink); border-color: #e9e9e9; }
+.btn--light:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.arrow-link { font-weight: 700; }
+
+/* nav + footer wordmark in the condensed face */
+.nav__brand { letter-spacing: 0.02em !important; font-size: 1.6rem !important; }
+.nav__cta { background: var(--ink); color: #fff; border-color: var(--ink) !important; }
+.nav--transparent:not(.is-scrolled) .nav__cta { background: #fff; color: var(--ink); border-color: #fff !important; }
+.footer__wordmark { letter-spacing: 0.02em !important; font-weight: 700; }
+.footer { background: var(--ink); color: #fff; }
+.footer .muted, .footer a { color: rgba(255,255,255,0.8); }
+.footer a:hover { color: #fff; }
+
 ::selection { background: var(--red); color: #fff; }
-.band--ink a.arrow-link:hover { color: #fff; }
 .accent { color: var(--red); }
+
+/* Screenplay accent: small labels set in Courier Prime, like a script page */
+.script { font-family: var(--font-script); font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
 
 /* Long-form text from markdown (course pages) */
 .prose { max-width: var(--measure); }
 .prose > * + * { margin-top: 1em; }
-.prose h2 { font-size: var(--text-display-sm); font-weight: 600; margin-top: 2.6rem; }
-.prose h2::after { content: ""; display: block; width: 2.5rem; height: 1px; background: var(--red); margin-top: 0.8rem; }
-.prose h3 { font-size: 1.45rem; font-weight: 600; margin-top: 1.8rem; }
+.prose h2 { font-size: var(--text-display-sm); text-transform: uppercase; margin-top: 2.6rem; }
+.prose h3 { font-size: 1.3rem; margin-top: 1.8rem; }
 .prose ul { padding-left: 0; list-style: none; }
 .prose ul li { position: relative; padding-left: 1.6em; margin-top: 0.45em; }
-.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 0.8em; height: 1px; background: var(--red); }
-.prose blockquote { margin: 2rem 0; padding: 0 0 0 1.5rem; border-left: 1px solid var(--red); font-family: var(--font-display); font-size: 1.45rem; line-height: 1.4; }
-.prose strong { font-weight: 600; }
+.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 0.8em; height: 2px; background: var(--red); }
+.prose blockquote { margin: 2rem 0; padding: 1.4rem 1.6rem; background: var(--paper-2); border-left: 4px solid var(--red); font-size: 1.25rem; line-height: 1.45; }
+.prose strong { font-weight: 700; }
 .prose em { font-style: italic; }
-
-/* Screenplay accent: small labels set in Courier Prime, like a script page */
-.script { font-family: var(--font-script); font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }

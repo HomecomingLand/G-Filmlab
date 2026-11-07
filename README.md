@@ -14,7 +14,7 @@ npm run build   # output in dist/
   Frontmatter feeds the cards and the "Praktisch" box; the body is the course text.
   Files starting with `_` are ignored.
 - `src/site.config.ts` — email, phone, address, form endpoint.
-- `src/styles/theme.css` — colours and fonts.
+- `src/styles/theme.css` — colours and fonts (style modelled on dfi.dk: Archivo Narrow headings, Archivo text, Courier Prime accent).
 - `src/views/*.astro` — page layouts and copy (home, cursussen, over Gert, contact, inschrijven).
 - `public/images/` — photos and logo.
 - `shared/` — layout components and base CSS shared with the other Embrace Evolve sites.
