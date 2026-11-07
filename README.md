@@ -23,4 +23,4 @@ npm run build   # output in dist/
 
 Build command `npm run build`, output directory `dist`, environment variable `NODE_VERSION=22`.
 Forms: paste a form endpoint (Formspree, Basin, Web3Forms …) into `formEndpoint` in `src/site.config.ts`.
-Set `site` in `astro.config.mjs` to the final domain.
+Domain: g-filmlab.org (set in `astro.config.mjs`).
