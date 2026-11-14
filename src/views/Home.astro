@@ -34,12 +34,13 @@ const audiences = [
   <!-- 1. Cinematic hero: the film still at its own widescreen ratio, title on black underneath (BFI) -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__still">
-      <img src="/images/still-fiets-zolder.jpg" alt="Filmstill van Gert Embrechts: een jongen herstelt een fiets op een donkere zolder, in een felle lichtbundel door het dakraam" width="1600" height="670" fetchpriority="high" />
+      <img src="/images/still-fiets-zolder.jpg" alt="Still uit Allez, Eddy! van Gert Embrechts: een jongen herstelt een fiets op een donkere zolder, in een felle lichtbundel door het dakraam" width="1600" height="670" fetchpriority="high" />
     </div>
     <div class="hero__content wrap">
       <h1 id="hero-title" class="hero__title">G-Filmlab</h1>
       <p class="hero__sub">Masterclasses en story development van scenarist en regisseur Gert Embrechts, voor film, televisie en je eigen verhaal</p>
       <a class="btn btn--light hero__cta" href={route('cursussen')}>Bekijk de cursussen</a>
+      <p class="hero__credit">Beeld: <em>Allez, Eddy!</em> · Gert Embrechts</p>
     </div>
   </section>
 
@@ -159,6 +160,7 @@ const audiences = [
   .hero__still { position: relative; }
   .hero__still img { width: 100%; height: auto; aspect-ratio: 1600 / 670; object-fit: cover; }
   .hero__still::after { content: ""; position: absolute; inset: auto 0 0 0; height: 30%; background: linear-gradient(0deg, var(--ink) 0%, rgba(0,0,0,0) 100%); pointer-events: none; }
+  .hero__credit { margin: 2.25rem 0 0; font-size: 0.8rem; color: rgba(255,255,255,0.65); }
   .hero__content { position: relative; padding-block: clamp(0.5rem, 1.5vw, 1.25rem) clamp(2.75rem, 5vw, 4.5rem); margin-top: clamp(-4.5rem, -5vw, -1rem); }
   .hero__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(3.25rem, 1.5rem + 7vw, 7.5rem); text-transform: uppercase; line-height: 0.92; letter-spacing: 0.01em; }
   .hero__sub { margin: 1.2rem 0 0; max-width: 40rem; font-weight: 700; font-size: clamp(1.2rem, 1rem + 0.8vw, 1.75rem); line-height: 1.2; letter-spacing: -0.01em; }
