@@ -51,4 +51,4 @@ Verdieping van de drie essentiële vragen, aangevuld met analyse van structuur e
 
 ## Vertrouwd door omroepen en fondsen
 
-Gert begeleidt projecten, filmmakers en content commissioners voor onder andere AFI en BFI. Wat zijn aanpak onderscheidt, is de combinatie van praktijkervaring in de sector met een achtergrond in systemisch werk en psychologie. Hierdoor gaat hij verder dan structuur en ambacht, en legt hij de onderliggende dynamieken bloot die personages, conflict en narratieve impact vormgeven.
+Gert begeleidt projecten, filmmakers en content commissioners voor onder andere Streamz, VRT en Dingie. Wat zijn aanpak onderscheidt, is de combinatie van praktijkervaring in de sector met een achtergrond in systemisch werk en psychologie. Hierdoor gaat hij verder dan structuur en ambacht, en legt hij de onderliggende dynamieken bloot die personages, conflict en narratieve impact vormgeven.
