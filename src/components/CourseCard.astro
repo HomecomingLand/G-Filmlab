@@ -1,8 +1,13 @@
 ---
+/**
+ * Course card in the BFI style: image on top, a light grey text panel,
+ * a small red category label, bold title, short text, "Ontdek de cursus ›"
+ * and a red bar along the bottom.
+ */
 import type { CollectionEntry } from 'astro:content';
 import TitleCard from './TitleCard.astro';
 import { courseUrl } from '../i18n';
-import { statusLabel } from '../lib/courses';
+import { statusLabel, audienceLabel } from '../lib/courses';
 interface Props { course: CollectionEntry<'courses'>; index: number }
 const { course, index } = Astro.props;
 const d = course.data;
@@ -14,19 +19,24 @@ const href = courseUrl(course.id);
       ? <div class="frame frame--4x3"><img src={d.image} alt="" loading="lazy" /></div>
       : <TitleCard title={d.title} format={d.format} index={index} />}
   </a>
-  <p class="eyebrow cc__meta"><span>{d.format}</span>{d.status !== 'open' && <span class="cc__status">{statusLabel[d.status]}</span>}</p>
-  <h3 class="display-sm"><a href={href}>{d.title}</a></h3>
-  <p class="cc__sum">{d.summary}</p>
-  <a class="arrow-link" href={href}>Ontdek de cursus</a>
+  <div class="cc__body">
+    <p class="cc__tags"><span class="tag">{audienceLabel[d.audience]}</span>{d.status !== 'open' && <span class="tag tag--ink">{statusLabel[d.status]}</span>}</p>
+    <h3 class="display-sm"><a href={href}>{d.title}</a></h3>
+    <p class="cc__format">{d.format}</p>
+    <p class="cc__sum">{d.summary}</p>
+    <a class="arrow-link" href={href}>Ontdek de cursus</a>
+  </div>
 </article>
 <style>
-  .cc { display: flex; flex-direction: column; }
+  .cc { display: flex; flex-direction: column; background: var(--paper-2); border-bottom: 4px solid var(--red); height: 100%; }
   .cc__media { display: block; overflow: hidden; }
   .cc__media :global(img), .cc__media :global(.tc) { transition: transform 0.6s ease; }
   .cc:hover .cc__media :global(img), .cc:hover .cc__media :global(.tc) { transform: scale(1.025); }
-  .cc__meta { font-family: var(--font-script); font-weight: 400; letter-spacing: 0.04em; margin: 1.3rem 0 0.6rem; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
-  .cc__status { color: var(--red); }
-  .cc h3 a:hover { color: var(--red); }
-  .cc__sum { margin: 0.8rem 0 1.2rem; flex: 1; }
+  .cc__body { position: relative; display: flex; flex-direction: column; flex: 1; padding: 0 1.4rem 1.5rem; }
+  .cc__tags { display: flex; gap: 0.4rem; margin: -0.85rem 0 1rem; position: relative; z-index: 1; }
+  .cc h3 a:hover { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  .cc__format { margin: 0.4rem 0 0; font-size: var(--text-small); color: var(--ink-soft); }
+  .cc__sum { margin: 0.8rem 0 1.2rem; flex: 1; font-size: var(--text-small); }
+  .cc .arrow-link { align-self: flex-start; }
   @media (prefers-reduced-motion: reduce) { .cc__media :global(img), .cc__media :global(.tc) { transition: none; } }
 </style>

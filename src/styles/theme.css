@@ -1,85 +1,123 @@
 /*
   THEME for G-Filmlab (Gert Embrechts).
-  Look & feel modelled on dfi.dk (Det Danske Filminstitut): light grey page,
-  white cards and buttons, black type, big condensed bold UPPERCASE headings,
-  a plain grotesk for text, full-bleed photos with left-aligned titles,
-  straight edges. The G-LAB red from the logo is the only accent colour.
+  References (November 2026): bfi.org.uk and afi.com.
+
+  From BFI: black header with white bold links, white page, big bold
+  headlines in sentence case, cards with a light grey text panel, a small
+  coloured category label and a coloured bar along the bottom, black
+  buttons with a coloured underline, grey bands, a soft tinted footer.
+  From AFI: Futura (here Jost) in UPPERCASE for the section titles,
+  a black / white / red palette, full-width red and black bands.
+  BFI's purple is replaced by the G-LAB red from the logo, which is
+  almost the same red AFI uses (#cd1732).
 */
 :root {
   /* colour */
-  --paper: #f3f3f3;          /* DFI light grey page */
-  --paper-2: #ffffff;        /* cards, buttons */
+  --paper: #ffffff;          /* BFI white page */
+  --paper-2: #f6f6f6;        /* BFI card panel */
   --sand: #d9d9d9;
-  --sand-25: #e8e8e8;        /* soft bands */
+  --sand-25: #ebeaea;        /* BFI grey band */
   --sand-50: #d0d0d0;
-  --red: #c50112;            /* G-LAB red (sampled from the logo) */
+  --red: #c50112;            /* G-LAB red (logo) */
   --red-deep: #8f000d;
+  --red-tint: #fae3e5;       /* footer tint, like BFI's pink */
   --clay: var(--red);
   --ink: #000000;
   --ink-2: #141414;
-  --ink-soft: #555555;
-  --line: #dcdcdc;
-  --line-strong: #b5b5b5;
+  --ink-soft: #595454;
+  --line: #e2e0e0;
+  --line-strong: #b5b2b2;
   --accent: var(--red);
   --on-accent: #ffffff;
   --on-sand: #000000;
 
   /* type */
-  --font-display: 'Archivo Narrow', 'Helvetica Neue Condensed', 'Arial Narrow', sans-serif;
-  --font-body: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-script: 'Courier Prime', 'Courier New', Courier, monospace; /* screenplay accent, used sparingly */
+  --font-display: 'Jost', 'futura-pt', Futura, 'Century Gothic', sans-serif;   /* AFI: futura-pt */
+  --font-body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;        /* BFI: Helvetica Neue */
+  --font-script: 'Courier Prime', 'Courier New', Courier, monospace;           /* screenplay accent, used sparingly */
   --display-weight: 700;
   --text-base: 1.0625rem;
   --leading-body: 1.55;
   --text-small: 0.9375rem;
   --text-eyebrow: 0.8125rem;
-  --text-lede: 1.375rem;
-  --text-display-sm: clamp(1.4rem, 1.15rem + 0.9vw, 1.75rem);
-  --text-display: clamp(2.25rem, 1.5rem + 2.6vw, 3.5rem);
-  --text-display-xl: clamp(2.75rem, 1.6rem + 4.5vw, 5.5rem);
-  --tracking-wide: 0.04em;
+  --text-lede: 1.3rem;
+  --text-display-sm: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-display: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --text-display-xl: clamp(2.5rem, 1.5rem + 4vw, 4.75rem);
+  --tracking-wide: 0.06em;
 
   /* space */
   --gutter: clamp(1rem, 2vw, 1.75rem);
-  --gap: clamp(1rem, 2vw, 2.25rem);
-  --space-section: clamp(3.5rem, 7vw, 6.5rem);
-  --space-section-sm: clamp(2.25rem, 4.5vw, 4rem);
+  --gap: clamp(1rem, 2vw, 1.6rem);
+  --space-section: clamp(3.5rem, 7vw, 6rem);
+  --space-section-sm: clamp(2.25rem, 4.5vw, 3.75rem);
   --measure: 44rem;
-  --measure-wide: 92rem;
+  --measure-wide: 78rem;    /* BFI keeps content in a centred column */
 
   /* shape */
   --radius-btn: 0;
   --radius-field: 0;
 }
 
-/* ---- DFI-style overrides of the shared base ---- */
+/* ---------- headings ---------- */
 h1, h2, h3, h4 { letter-spacing: 0; }
-.display, .display-xl { text-transform: uppercase; line-height: 0.98; letter-spacing: -0.005em; }
-.display-sm { font-weight: 700; line-height: 1.1; }
-.eyebrow { font-weight: 700; }
-.sh__rule, .intro__rule { display: none !important; }
-.sh__eyebrow { color: var(--ink-soft); }
+/* AFI: section titles in Futura caps */
+.display, .display-xl { font-family: var(--font-display); text-transform: uppercase; line-height: 1; letter-spacing: 0.01em; font-weight: 700; }
+/* BFI: card and sub titles in bold grotesk, sentence case */
+.display-sm { font-family: var(--font-body); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.eyebrow { font-weight: 700; letter-spacing: 0.06em; }
+.sh__rule { display: block !important; width: 3rem !important; height: 4px !important; background: var(--red) !important; margin-top: 1rem; }
+.intro__rule { display: none !important; }
+.sh__eyebrow { color: var(--red) !important; }
 
-/* buttons: white blocks with black bold uppercase text */
-.btn { background: var(--paper-2); color: var(--ink); border-color: var(--paper-2); font-weight: 700; padding: 0.95em 1.5em; }
-.btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
-.btn--solid { background: var(--ink); color: #fff; border-color: var(--ink); }
-.btn--solid:hover { background: var(--red); border-color: var(--red); color: #fff; }
-.btn--light { background: #e9e9e9; color: var(--ink); border-color: #e9e9e9; }
-.btn--light:hover { background: #fff; color: var(--ink); border-color: #fff; }
-.arrow-link { font-weight: 700; }
+/* ---------- buttons: BFI black block with a coloured bar underneath ---------- */
+.btn {
+  background: var(--ink); color: #fff; border: 0; border-bottom: 4px solid var(--red);
+  font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; letter-spacing: 0; text-transform: none;
+  padding: 0.85em 1.4em 0.75em;
+}
+.btn:hover { background: var(--red); color: #fff; border-bottom-color: var(--ink); }
+.btn--solid { background: var(--ink); color: #fff; border-bottom-color: var(--red); }
+.btn--solid:hover { background: var(--red); color: #fff; border-bottom-color: var(--ink); }
+.btn--light { background: #fff; color: var(--ink); border-bottom-color: var(--red); }
+.btn--light:hover { background: var(--ink); color: #fff; border-bottom-color: var(--red); }
 
-/* nav + footer wordmark in the condensed face */
-.nav__brand { letter-spacing: 0.02em !important; font-size: 1.6rem !important; }
-.nav__cta { background: var(--ink); color: #fff; border-color: var(--ink) !important; }
-.nav--transparent:not(.is-scrolled) .nav__cta { background: #fff; color: var(--ink); border-color: #fff !important; }
-.footer__wordmark { letter-spacing: 0.02em !important; font-weight: 700; }
-.footer { background: var(--ink); color: #fff; }
-.footer .muted, .footer a { color: rgba(255,255,255,0.8); }
-.footer a:hover { color: #fff; }
+/* BFI "Find out more >" links */
+.arrow-link { font-family: var(--font-body); font-size: 0.95rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.arrow-link::after { content: "\203A"; color: var(--red); font-size: 1.35em; line-height: 0.8; }
+.arrow-link:hover { text-decoration: underline; text-underline-offset: 0.25em; text-decoration-thickness: 2px; text-decoration-color: var(--red); }
+
+/* ---------- header: BFI black bar ---------- */
+.nav, .nav--transparent, .nav--transparent.is-scrolled { background: var(--ink) !important; color: #fff !important; box-shadow: none !important; }
+.nav__inner { min-height: 5rem; }
+.nav__brand { font-family: var(--font-display) !important; font-weight: 700 !important; letter-spacing: 0.04em !important; font-size: 1.5rem !important; }
+.nav__links a, .nav__toggle { font-family: var(--font-body); font-size: 1rem !important; letter-spacing: 0 !important; text-transform: none !important; font-weight: 600 !important; }
+.nav__links a { padding-bottom: 0.2em; border-bottom: 2px solid transparent; }
+.nav__links a:hover, .nav__links a[aria-current='page'] { border-bottom-color: #fff; text-decoration: none !important; }
+.nav__cta { background: #fff; color: var(--ink) !important; border: 0 !important; border-bottom: 4px solid var(--red) !important; font-size: 0.95rem !important; letter-spacing: 0 !important; text-transform: none !important; font-weight: 700 !important; padding: 0.7em 1.2em 0.6em !important; }
+.nav__cta:hover { background: var(--red) !important; color: #fff !important; }
+.nav__mobile { background: var(--ink) !important; color: #fff !important; border-top-color: rgba(255,255,255,0.15) !important; }
+.nav__mobile a { font-family: var(--font-body) !important; font-weight: 700; font-size: 1.4rem !important; }
+.nav__mobile-cta { font-size: 1rem !important; letter-spacing: 0 !important; text-transform: none !important; }
+
+/* ---------- footer: BFI soft tint, columns with a black rule on top ---------- */
+.footer { background: var(--red-tint) !important; color: var(--ink) !important; }
+.footer__wordmark { font-family: var(--font-display) !important; letter-spacing: 0.04em !important; font-weight: 700; }
+.footer__title { font-family: var(--font-body); font-size: 1rem !important; letter-spacing: 0 !important; text-transform: none !important; font-weight: 700; padding-top: 0.8rem; border-top: 2px solid var(--ink); }
+.footer .muted { color: var(--ink-soft); }
+.footer__list a:hover { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+.footer__legal hr { border-top-color: rgba(0,0,0,0.25) !important; }
+
+/* ---------- bands ---------- */
+.band { background: var(--sand-25); }
+.band--red { background: var(--red); color: #fff; }
 
 ::selection { background: var(--red); color: #fff; }
 .accent { color: var(--red); }
+
+/* BFI category label: small solid block */
+.tag { display: inline-block; background: var(--red); color: #fff; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; line-height: 1; padding: 0.45em 0.6em; }
+.tag--ink { background: var(--ink); }
 
 /* Screenplay accent: small labels set in Courier Prime, like a script page */
 .script { font-family: var(--font-script); font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
@@ -87,12 +125,12 @@ h1, h2, h3, h4 { letter-spacing: 0; }
 /* Long-form text from markdown (course pages) */
 .prose { max-width: var(--measure); }
 .prose > * + * { margin-top: 1em; }
-.prose h2 { font-size: var(--text-display-sm); text-transform: uppercase; margin-top: 2.6rem; }
-.prose h3 { font-size: 1.3rem; margin-top: 1.8rem; }
+.prose h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem); text-transform: uppercase; margin-top: 2.6rem; }
+.prose h3 { font-family: var(--font-body); font-size: 1.2rem; margin-top: 1.8rem; }
 .prose ul { padding-left: 0; list-style: none; }
 .prose ul li { position: relative; padding-left: 1.6em; margin-top: 0.45em; }
-.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 0.8em; height: 2px; background: var(--red); }
-.prose blockquote { margin: 2rem 0; padding: 1.4rem 1.6rem; background: var(--paper-2); border-left: 4px solid var(--red); font-size: 1.25rem; line-height: 1.45; }
+.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 0.8em; height: 3px; background: var(--red); }
+.prose blockquote { margin: 2rem 0; padding: 1.4rem 1.6rem; background: var(--paper-2); border-bottom: 4px solid var(--red); font-size: 1.25rem; font-weight: 600; line-height: 1.45; }
 .prose figure { margin: 0; }
 .prose figure img { display: block; width: 100%; height: auto; }
 .prose figcaption { margin-top: 0.5rem; font-size: var(--text-small); color: var(--ink-soft); }
