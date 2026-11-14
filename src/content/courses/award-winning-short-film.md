@@ -83,6 +83,16 @@ Gerts kortfilm *13* won onder meer de Kodak Vision Award op het Slamdance Film F
 
 *Vincent* duurt amper vier minuten. Hij won de TPS Award voor Beste Internationale Kortfilm in Lille, en op het New York Independent Film Festival kreeg hij de prijzen voor Beste Buitenlandse Film en Beste Cinematografie. Hij werd uitgezonden door Canal+ International en Sundance Channel, van Europa en Afrika tot de Verenigde Staten.
 
+<div class="posters">
+<figure><img src="/images/poster-13.jpg" alt="Affiche van de kortfilm 13 van Gert Embrechts" loading="lazy" /><figcaption>13</figcaption></figure>
+<figure><img src="/images/poster-vincent.jpg" alt="Postkaart van de kortfilm Vincent van Gert Embrechts" loading="lazy" /><figcaption>Vincent</figcaption></figure>
+</div>
+
+<figure class="still">
+<img src="/images/still-vincent-dokter.jpg" alt="Still uit de kortfilm Vincent: een man in operatiekleding grijnst vanuit een donkere opening" loading="lazy" />
+<figcaption>Still uit Vincent</figcaption>
+</figure>
+
 > Ik weet hoe het voelt om een film in te sturen en te wachten. Ik weet ook wat het verschil maakt tussen een film die blijft liggen en een film die wordt geselecteerd. Dat verschil zit niet in geluk. Het zit in keuzes die je al maakt voordat je één beeld hebt gedraaid, en precies die keuzes leer ik je maken.
 
 Het aantal plaatsen is beperkt.
